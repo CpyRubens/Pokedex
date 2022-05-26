@@ -23,8 +23,33 @@
                 <h2><%= pokemon.nome %></h2>
                 <p><%= pokemon.descricao %></p>
                 <p>Tipo: <%= pokemon.tipo %></p>
+                <p><%= pokemon.id %></p>
+                <a href="update/<%= pokemon.id %>">Editar</a>
             </div> 
         <%}) %>
+
+    </section>
+
+    <section id="cadastro">
+
+        <h2>Cadastre um novo Pokemon!</h2>
+
+        <form action="/add" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao">
+
+            <label for="tipo">Tipo:</label>
+            <input type="text" id="tipo" name="tipo">
+            
+            <label for="imagem">Link da Imagem</label>
+            <input type="url" id="imagem" name="imagem">
+
+            <button id="btnCadastrar" type="submit">Cadastrar</button>
+
+        </form>
 
     </section>
 </main>
