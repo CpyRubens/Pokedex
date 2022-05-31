@@ -30,9 +30,10 @@ section#cards {
 
 div.card {
     padding: 1rem;
-    width: 20rem;
+    width: 25%;
     box-shadow: 5px 5px 5px 5px #00000020;
     margin: 1rem;
+    background-color: aliceblue;;
 }
 
 div.card img {
@@ -84,4 +85,19 @@ section#cadastro form button{
 section#cadastro form button:hover{
     background-color: red;
     color: #ffF;
+}
+section#cards div.card a{
+    text-decoration: none;
+    padding: .6rem;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 1rem;
+    background-color: #FFF;
+    border: solid 1px red;
+    color: red;
+    cursor: pointer;
+    transition: 1s ease-in-out;
 }

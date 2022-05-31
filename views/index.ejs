@@ -1,58 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Pokedéx</title>
-    
+
 </head>
+
 <body>
     <header>
         <h1>Pokedéx</h1>
     </header>
-    
-<main>
 
-    <section id="cards">
+    <main>
 
-        <% pokedex.forEach((pokemon) => {%>
-            <div class="card">
-                <img src="<%= pokemon.imagem %>" alt="">
-                <h2><%= pokemon.nome %></h2>
-                <p><%= pokemon.descricao %></p>
-                <p>Tipo: <%= pokemon.tipo %></p>
-                <p><%= pokemon.id %></p>
-                <a href="update/<%= pokemon.id %>">Editar</a>
-            </div> 
-        <%}) %>
+        <section id="cadastro">
+            <% if(pokemon == undefined){ %>
+                <h2>Cadastre um novo Pokemon!</h2>
 
-    </section>
+                <form action="/add" method="POST">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
 
-    <section id="cadastro">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" name="descricao" required>
 
-        <h2>Cadastre um novo Pokemon!</h2>
+                    <label for="tipo">Tipo:</label>
+                    <input type="text" id="tipo" name="tipo" required>
 
-        <form action="/add" method="POST">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome">
+                    <label for="imagem">Link da Imagem</label>
+                    <input type="url" id="imagem" name="imagem" required>
 
-            <label for="descricao">Descrição:</label>
-            <input type="text" id="descricao" name="descricao">
+                    <button id="btnCadastrar" type="submit">Cadastrar</button>
 
-            <label for="tipo">Tipo:</label>
-            <input type="text" id="tipo" name="tipo">
-            
-            <label for="imagem">Link da Imagem</label>
-            <input type="url" id="imagem" name="imagem">
+                </form>
+            <% } else { %>
 
-            <button id="btnCadastrar" type="submit">Cadastrar</button>
+                <h2>Edite o Pokemon!</h2>
 
-        </form>
+                <form action="/update/<%= pokemon.id %>"  method="POST">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" value="<%= pokemon.nome %>" required>
 
-    </section>
-</main>
-    
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" maxlength="100" name="descricao" value="<%= pokemon.descricao %>" required>
+
+                    <label for="tipo">Tipo:</label>
+                    <input type="text" id="tipo" name="tipo" value="<%= pokemon.tipo %>" required>
+
+                    <label for="imagem">Link da Imagem</label>
+                    <input type="url" id="imagem" name="imagem" value="<%= pokemon.imagem %>" required>
+
+                    <button id="btnCadastrar" type="submit">Editar!</button>
+
+                </form>
+                <% } %>
+        </section>
+
+        <section id="cards">
+
+            <% pokedex.forEach((pokemon)=> {%>
+                <div class="card">
+                    <img src="<%= pokemon.imagem %>" alt="">
+                    <h2>
+                        <%= pokemon.nome %>
+                    </h2>
+                    <p>
+                        <%= pokemon.descricao %>
+                    </p>
+                    <p>Tipo: <%= pokemon.tipo %>
+                    </p>
+                    <p>
+                        <%= pokemon.id %>
+                    </p>
+                    <a href="/detalhes/<%= pokemon.id %>">Editar</a>
+                </div>
+                <%}) %>
+
+        </section>
+
+        
+    </main>
+
 </body>
+
 </html>
