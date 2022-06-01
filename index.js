@@ -1,4 +1,7 @@
 const express = require("express");
+const req = require("express/lib/request");
+const { redirect } = require("express/lib/response");
+const res = require("express/lib/response");
 const path = require("path")
 const app = express();
 
@@ -6,7 +9,9 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, "public")))
 app.use(express.urlencoded({ extended: true }))
 
-const pokedex = [{
+//models
+
+const pokemonList = [{
     id: 1,
     nome: "Bulbasaur",
     descricao: "There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.",
@@ -36,44 +41,70 @@ const pokedex = [{
 
 
 let pokemon = undefined;
+let message = "";
 
+
+//rotas
+
+
+//rota principal
+app.get("/", (req, res) => {
+
+    setTimeout(() => {
+        message = "";
+      }, 1000);
+
+    res.render("index", { pokemonList, pokemon, message });
+});
+
+
+// rota de create
+app.post("/add", (req, res) => {
+    const pokemon = req.body;
+
+    pokemon.id = pokemonList.length + 1;
+    pokemonList.push(pokemon);
+
+    message =`Parabéns, ${pokemon.nome} foi adicionando com sucesso a sua pokédex` ;
+    res.redirect("/#cards");
+
+});
+
+// rota de leitura
 app.get("/detalhes/:id", (req, res) => {
     const id = Number(req.params.id);
 
-    pokemon = pokedex.find(pokemon => pokemon.id === id);
+    pokemon = pokemonList.find(pokemon => pokemon.id === id);
 
     res.redirect("/")
 
 })
 
-app.get("/", (req, res) => {
 
-    res.render("index", { pokedex, pokemon });
-});
-
-
-
-app.post("/add", (req, res) => {
-    const pokemon = req.body;
-
-    pokemon.id = pokedex.length + 1;
-    pokedex.push(pokemon);
-
-
-    res.redirect("/")
-});
-
+//rota de editar/update
 app.post("/update/:id", (req, res) => {
     const id = Number(req.params.id - 1);
 
     const newPokemon = req.body;
-    pokedex[id] = newPokemon;
+    pokemonList[id] = newPokemon;
     newPokemon.id = id + 1;
     
     pokemon = undefined;
-    res.redirect("/")
+    res.redirect("/#cards")
 
 })
+
+//rota de delete
+app.get("/deletar/:id", (req,res) => {
+    const id = Number(req.params.id - 1);
+    const pokemon = req.body;
+
+    pokemon.id = pokemonList.length;
+    delete pokemonList[id]
+ 
+
+    res.redirect("/#cards")
+} )
 
 
 
