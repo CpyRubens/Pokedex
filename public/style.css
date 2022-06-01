@@ -8,6 +8,10 @@
     scroll-behavior: smooth;
 }
 
+body {
+    width: 100vw;
+}
+
 nav {
     position: fixed;
     width: 100%;
@@ -233,7 +237,17 @@ footer p {
         margin: .3rem 1rem 1rem -.8rem;
     }
 
+    nav ul li {
+        padding: .2rem;
+    }
+    nav ul li h2 {
+        font-size: 1.5rem;
+    }
+    nav ul li img{
+        font-size: 2rem;
+    }
+
     nav ul li a {
-        font-size: 1rem;
+        font-size: .8rem;
     }
 }
