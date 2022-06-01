@@ -220,13 +220,17 @@ footer p {
 /*Responsividade */
 
 @media screen and (max-width : 600px) {
-    div.card {
+    section#cards div.card {
         width: 100%;
     }
 
     section#cadastro form {
         width: 100%;
-        padding: 2rem;
+        padding: 2.1rem;
+    }
+
+    section#cadastro form input {
+        margin: .3rem 1rem 1rem -.8rem;
     }
 
     nav ul li a {
